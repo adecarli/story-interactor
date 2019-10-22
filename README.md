@@ -20,7 +20,7 @@ Principalmente, o usuário irá interagir com a aplicação fazendo escolhas que
 * Design das Telas
     * Tela principal
     * Tela de Texto/Escolha
-    * Tela de Personagem
+    * Tela de Anotações
     * Tela de desafio baseada em sensores
 * Implementação das Activities 
     * Lógica de Jogo
