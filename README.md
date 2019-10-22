@@ -14,7 +14,7 @@ Atualmente, existem algumas alternativas de aventuras a base de texto em disposi
 ## Como usar?
 Principalmente, o usuário irá interagir com a aplicação fazendo escolhas que ditarão o rumo da história. Em algumas situações específicas, será requisitado que ele use recursos disponíveis no dispositivo (como câmera, microfone ou GPS) para revelar novas escolhas e/ou informações ou superar desafios propostos.
 
-[Mockup]()
+[Mockup](https://pr.to/UUIWAI/)
 
 ## Descrição das atividades a serem desenvolvidas
 * Design das Telas
