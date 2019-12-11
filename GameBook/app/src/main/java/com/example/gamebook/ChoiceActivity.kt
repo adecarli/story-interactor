@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -43,5 +44,15 @@ class ChoiceActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.app_bar_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_open_notebook -> {
+            val intent = Intent(this, NotebookActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
 }
