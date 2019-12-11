@@ -1,0 +1,42 @@
+{
+  "scenes": [
+    {
+      "type": "TextScene",
+      "okLink": 1,
+      "text": "lol",
+      "title": "haha"
+    },
+    {
+      "type": "PasswordScene",
+      "errorLink": 3,
+      "okLink": 2,
+      "password": "12345",
+      "text": "lol",
+      "title": "haha"
+    },
+    {
+      "type": "ChoiceScene",
+      "choices": [
+        {
+          "link": 4,
+          "name": "c1"
+        },
+        {
+          "link": 1,
+          "name": "c2"
+        }
+      ],
+      "text": "lol",
+      "title": "haha"
+    },
+    {
+      "type": "CameraScene",
+      "errorLink": -1,
+      "label": "gado",
+      "notFoundLink": -1,
+      "okLink": 0,
+      "text": "lol",
+      "title": "haha"
+    }
+  ]
+}
