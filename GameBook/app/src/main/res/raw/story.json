@@ -1,4 +1,6 @@
 {
+  "title": "Story",
+  "description": "example scene",
   "scenes": [
     {
       "type": "TextScene",
