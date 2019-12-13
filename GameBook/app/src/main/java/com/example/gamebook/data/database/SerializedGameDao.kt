@@ -9,7 +9,7 @@ interface SerializedGameDao {
     fun getAll(): List<SerializedGame>
 
     @Query("SELECT * FROM serialized_game WHERE uid = :id")
-    fun get(id: Int): SerializedGame?
+    fun get(id: Long): SerializedGame?
 
     @Insert
     fun insert(serializedGame: SerializedGame) : Long
