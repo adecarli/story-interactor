@@ -30,6 +30,11 @@ class MainActivity : AppCompatActivity() {
             intent.type = "application/*"
             startActivityForResult(intent, NEW_STORY_REQUEST_CODE)
         }
+
+        continue_adventure_button.setOnClickListener {
+            val intent = Intent(this, StoryChooserActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

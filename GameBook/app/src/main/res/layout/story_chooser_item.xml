@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="kkkkkk"
+        android:textSize="30sp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/last_played"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="kkkkkk"
+        android:textSize="15sp"
+        android:textAlignment="textEnd">
+    </TextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+</LinearLayout>
