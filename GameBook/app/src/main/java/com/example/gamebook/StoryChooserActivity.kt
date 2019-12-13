@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebook.data.database.SerializedGame
 import com.example.gamebook.data.database.SerializedGameDatabase
 import org.jetbrains.anko.doAsync
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class StoryChooserActivity : AppCompatActivity() {
 
@@ -31,7 +33,9 @@ class StoryChooserActivity : AppCompatActivity() {
 
         doAsync {
             val dao = db.serializedGameDao()
-            serializedGames.addAll(dao.getAll())
+            serializedGames.addAll(dao.getAll().sortedByDescending { el ->
+                ZonedDateTime.parse(el.lastPlayed, DateTimeFormatter.RFC_1123_DATE_TIME)
+            })
             runOnUiThread {
                 viewAdapter.notifyDataSetChanged()
             }
