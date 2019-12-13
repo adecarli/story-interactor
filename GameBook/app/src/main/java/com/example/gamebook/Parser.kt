@@ -3,10 +3,11 @@ package com.example.gamebook
 import com.example.gamebook.data.*
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonSyntaxException
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 
 object Parser {
-    fun parse(json: String) : Game {
+    fun parse(json: String) : Game? {
         val adapter : RuntimeTypeAdapterFactory<Scene> =
             RuntimeTypeAdapterFactory
                 .of(Scene::class.java)
@@ -17,6 +18,10 @@ object Parser {
 
         val gson : Gson = GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create()
 
-        return gson.fromJson(json, Game::class.java)
+        return try {
+            gson.fromJson(json, Game::class.java)
+        } catch (e : JsonSyntaxException) {
+            null
+        }
     }
 }

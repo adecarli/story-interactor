@@ -1,4 +1,6 @@
 {
+  "title": "Story",
+  "description": "example scene",
   "scenes": [
     {
       "type": "TextScene",
@@ -35,6 +37,12 @@
       "label": "gado",
       "notFoundLink": -1,
       "okLink": 0,
+      "text": "lol",
+      "title": "haha"
+    },
+    {
+      "type": "TextScene",
+      "okLink": 1,
       "text": "lol",
       "title": "haha"
     }
