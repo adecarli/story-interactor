@@ -1,15 +1,20 @@
 package com.example.gamebook
 
 import android.content.Context
-import android.util.Log
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gamebook.data.database.SerializedGame
+import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.story_chooser_item.view.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.runOnUiThread
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
-class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>, context : Context) :
+class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>, val context : Context) :
     RecyclerView.Adapter<StoryChooserItemAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View, var serializedGame : SerializedGame?) : RecyclerView.ViewHolder(view)
@@ -28,7 +33,21 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
         holder.view.title.text = game.title
         holder.view.last_played.text = serializedGame.lastPlayed
         holder.view.setOnClickListener {
-            Log.d("DEBUG", game.title)
+            val db = SerializedGameDatabase.getInstance(context)
+
+            doAsync {
+                val dao = db.serializedGameDao()
+                val time = ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)
+                serializedGame.lastPlayed = time
+
+                dao.update(serializedGame)
+
+                context.runOnUiThread {
+                    val intent = Intent(this, game.getCurrentActivity())
+                    intent.putExtra("game_id", serializedGame.uid)
+                    startActivity(intent)
+                }
+            }
         }
     }
 

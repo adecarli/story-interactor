@@ -12,7 +12,8 @@
         <activity
             android:name=".StoryChooserActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:noHistory="true"/>
         <activity
             android:name=".NotebookActivity"
             android:configChanges="orientation"

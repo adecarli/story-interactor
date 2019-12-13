@@ -3,7 +3,6 @@ package com.example.gamebook
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebook.data.Game
 import com.example.gamebook.data.database.SerializedGame
@@ -59,12 +58,14 @@ class MainActivity : AppCompatActivity() {
 
                         doAsync {
                             val dao = db.serializedGameDao()
-
                             val time = ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)
-
                             val id = dao.insert(SerializedGame(0, outputString, time))
 
-                            Log.d("DEBUG", "Database length is ${dao.getAll().size}")
+                            runOnUiThread {
+                                val intent = Intent(this.weakRef.get(), game.getCurrentActivity())
+                                intent.putExtra("game_id", id)
+                                startActivity(intent)
+                            }
                         }
                     }
                 }
