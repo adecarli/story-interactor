@@ -2,18 +2,17 @@ package com.example.gamebook
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebook.data.Game
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDao
 import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import java.io.ByteArrayOutputStream
-import java.time.LocalDateTime
-import java.util.*
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,7 +59,9 @@ class MainActivity : AppCompatActivity() {
 
                         doAsync {
                             val dao = db.serializedGameDao()
-                            val time = Calendar.getInstance().time.toString()
+
+                            val time = ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)
+
                             val id = dao.insert(SerializedGame(0, outputString, time))
 
                             Log.d("DEBUG", "Database length is ${dao.getAll().size}")
