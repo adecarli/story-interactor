@@ -25,7 +25,8 @@
         <activity
             android:name=".PasswordActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:noHistory="true" />
         <activity
             android:name=".ChoiceActivity"
             android:configChanges="orientation"
