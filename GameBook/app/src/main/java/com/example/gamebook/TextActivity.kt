@@ -13,7 +13,6 @@ import org.jetbrains.anko.doAsync
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
-
 class TextActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +47,7 @@ class TextActivity : AppCompatActivity() {
                         val intent = Intent(this@TextActivity, game.getCurrentActivity())
                         intent.putExtra("game_id", id)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }

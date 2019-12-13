@@ -6,14 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebook.data.PasswordScene
-import com.example.gamebook.data.TextScene
 import com.example.gamebook.data.database.SerializedGame
 import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.activity_password.*
-import kotlinx.android.synthetic.main.activity_password.button_next
-import kotlinx.android.synthetic.main.activity_password.scene_text
-import kotlinx.android.synthetic.main.activity_password.scene_title
-import kotlinx.android.synthetic.main.activity_text.*
 import org.jetbrains.anko.doAsync
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -58,6 +53,7 @@ class PasswordActivity : AppCompatActivity() {
                         val intent = Intent(this@PasswordActivity, game.getCurrentActivity())
                         intent.putExtra("game_id", id)
                         startActivity(intent)
+                        finish()
                     }
                 }
             }
