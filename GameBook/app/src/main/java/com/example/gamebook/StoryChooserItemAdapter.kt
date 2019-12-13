@@ -22,7 +22,7 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val serializedGame = serializedGames[position]
-        val game = Parser.parse(serializedGame.json)!!
+        val game = Parser.fromJson(serializedGame.json)!!
 
         holder.serializedGame = serializedGame
         holder.view.title.text = game.title
