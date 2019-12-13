@@ -7,7 +7,7 @@ import com.google.gson.JsonSyntaxException
 import com.google.gson.typeadapters.RuntimeTypeAdapterFactory
 
 object Parser {
-    fun parse(json: String) : Game? {
+    fun fromJson(json: String) : Game? {
         val adapter : RuntimeTypeAdapterFactory<Scene> =
             RuntimeTypeAdapterFactory
                 .of(Scene::class.java)
@@ -23,5 +23,19 @@ object Parser {
         } catch (e : JsonSyntaxException) {
             null
         }
+    }
+
+    fun toJson(game : Game) : String {
+        val adapter : RuntimeTypeAdapterFactory<Scene> =
+            RuntimeTypeAdapterFactory
+                .of(Scene::class.java)
+                .registerSubtype(TextScene::class.java)
+                .registerSubtype(PasswordScene::class.java)
+                .registerSubtype(ChoiceScene::class.java)
+                .registerSubtype(CameraScene::class.java)
+
+        val gson : Gson = GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create()
+
+        return gson.toJson(game)
     }
 }

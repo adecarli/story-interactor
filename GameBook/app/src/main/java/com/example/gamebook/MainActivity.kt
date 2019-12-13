@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     val byteArray = outputStream.toByteArray()
                     val outputString = String(byteArray, Charsets.UTF_8)
 
-                    val game : Game? = Parser.parse(outputString)
+                    val game : Game? = Parser.fromJson(outputString)
 
                     if (game != null) {
                         val db = SerializedGameDatabase.getInstance(this)
