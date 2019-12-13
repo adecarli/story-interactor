@@ -6,8 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.gamebook.data.Game
+import com.example.gamebook.data.database.SerializedGame
+import com.example.gamebook.data.database.SerializedGameDao
+import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.doAsync
 import java.io.ByteArrayOutputStream
+import java.time.LocalDateTime
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,8 +49,17 @@ class MainActivity : AppCompatActivity() {
                     val outputString = String(byteArray, Charsets.UTF_8)
 
                     val game : Game? = Parser.parse(outputString)
-                    game?.let {
-                        Log.d("DEBUG", "yey!")
+
+                    if (game != null) {
+                        val db = SerializedGameDatabase.getInstance(this)
+
+                        doAsync {
+                            val dao = db.serializedGameDao()
+                            val time = Calendar.getInstance().time.toString()
+                            val id = dao.insert(SerializedGame(0, outputString, time))
+
+                            Log.d("DEBUG", "Database length is ${dao.getAll().size}")
+                        }
                     }
                 }
             }
