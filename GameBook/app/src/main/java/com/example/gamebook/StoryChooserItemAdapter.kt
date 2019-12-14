@@ -1,5 +1,6 @@
 package com.example.gamebook
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -29,12 +30,12 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
         val serializedGame = serializedGames[position]
         val game = Parser.fromJson(serializedGame.json)!!
 
+        val db = SerializedGameDatabase.getInstance(context)
+
         holder.serializedGame = serializedGame
         holder.view.title.text = game.title
         holder.view.last_played.text = serializedGame.lastPlayed
         holder.view.setOnClickListener {
-            val db = SerializedGameDatabase.getInstance(context)
-
             doAsync {
                 val dao = db.serializedGameDao()
                 val time = ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME)
@@ -47,6 +48,15 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
                     intent.putExtra("game_id", serializedGame.uid)
                     startActivity(intent)
                 }
+            }
+        }
+        holder.view.button_delete.setOnClickListener {
+            doAsync {
+                val dao = db.serializedGameDao()
+                dao.delete(serializedGame)
+
+                (context as Activity).finish()
+                context.startActivity(context.intent)
             }
         }
     }
