@@ -6,6 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+buildscript {
+    repositories {
+        maven { url 'https://google.bintray.com/tensorflow'}
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -23,6 +29,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
 }
 
 dependencies {
@@ -35,6 +45,11 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'org.danilopianini:gson-extras:0.2.2'
+
+    implementation 'org.tensorflow:tensorflow-lite:1.12.0'
+
+    implementation "io.reactivex.rxjava2:rxandroid:+"
+    implementation "io.reactivex.rxjava2:rxkotlin:+"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
