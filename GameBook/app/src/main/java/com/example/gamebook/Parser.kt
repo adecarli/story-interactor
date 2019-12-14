@@ -15,6 +15,7 @@ object Parser {
                 .registerSubtype(PasswordScene::class.java)
                 .registerSubtype(ChoiceScene::class.java)
                 .registerSubtype(CameraScene::class.java)
+                .registerSubtype(GameOverScene::class.java)
 
         val gson : Gson = GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create()
 
@@ -33,6 +34,7 @@ object Parser {
                 .registerSubtype(PasswordScene::class.java)
                 .registerSubtype(ChoiceScene::class.java)
                 .registerSubtype(CameraScene::class.java)
+                .registerSubtype(GameOverScene::class.java)
 
         val gson : Gson = GsonBuilder().setPrettyPrinting().registerTypeAdapterFactory(adapter).create()
 

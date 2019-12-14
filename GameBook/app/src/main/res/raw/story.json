@@ -45,16 +45,14 @@
       "notFoundLink": 2
     },
     {
-      "type": "TextScene",
+      "type": "GameOverScene",
       "title": "True Happiness!",
-      "text" : "André was a happy man for the rest of his life! Yey!",
-      "okLink": 0
+      "text" : "André was a happy man for the rest of his life! Yey!"
     },
     {
-      "type": "TextScene",
+      "type": "GameOverScene",
       "title": "True Drunkness!",
-      "text" : "André was so wasted he couldn't recognize a fellow corno. Shame on you, André.",
-      "okLink": 0
+      "text" : "André was so wasted he couldn't recognize a fellow corno. Shame on you, André."
     }
   ]
 }
