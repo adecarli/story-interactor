@@ -81,12 +81,6 @@ class ChoiceActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-        button_next.setOnClickListener {
-            val intent = Intent(this, PasswordActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
