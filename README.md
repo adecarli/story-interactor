@@ -12,10 +12,12 @@ O público-alvo do projeto são pessoas que tem interesse em aventuras a base de
 Atualmente, existem algumas alternativas de aventuras a base de texto em dispositivos móveis, como [Magium](https://play.google.com/store/apps/details?id=com.magiumgames.magium&hl=en) e [Fighting Fantasy Classics](https://play.google.com/store/apps/details?id=com.tinmangames.ffhub&hl=en). No entanto, não encontramos um aplicativo que explorasse o potencial dos celulares atuais, com diversos sensores disponíveis.
 
 ## Como usar?
-O usuário irá interagir com a aplicação fazendo escolhas que ditarão o rumo da história. Em algumas situações específicas, será requisitado que ele use recursos disponíveis no dispositivo (como câmera, microfone ou GPS) para revelar novas escolhas e/ou informações ou superar desafios propostos.  
+O usuário irá interagir com a aplicação fazendo escolhas que ditarão o rumo da história. Em algumas situações específicas, será requisitado que ele use recursos disponíveis no dispositivo (como câmera, microfone ou GPS) para revelar novas escolhas e/ou informações ou superar desafios propostos.
 A história pode ser customizada pelo usuário, que irá carregá-la a partir de um arquivo JSON ([exemplo](story.json)).
 
 [Mockup](https://pr.to/UUIWAI/)
+
+[Video de Uso](https://drive.google.com/file/d/1J6t3O7fLpIxKlEz6-kOdDqe4VL339tCo/view?usp=sharing)
 
 ## Descrição das atividades a serem desenvolvidas
 * Design das Telas
