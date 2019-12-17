@@ -1,0 +1,58 @@
+{
+  "title": "Andre's Tale",
+  "description": "sample story",
+  "scenes": [
+    {
+      "type": "TextScene",
+      "title": "Corno, to be or not to be?",
+      "text" : "A long, long time ago, there was a corno named André, he needed some reflection about what he really was...",
+      "okLink": 1
+    },
+    {
+      "type": "PasswordScene",
+      "title": "Ok, what am I, finnaly?",
+      "text" : "Maybe André was getting closser to discover his most defining attribute. He believed to be a...",
+      "password": "corno",
+      "okLink": 2,
+      "errorLink": 0
+    },
+    {
+      "type": "ChoiceScene",
+      "title": "Corno, I'm a corno!!",
+      "text" : "André finally accepted his true self! Now he needs to do something about it...",
+      "choices": [
+        {
+          "name": "Spread the news!",
+          "link": 4
+        },
+        {
+          "name": "Become the supreme corno-man!",
+          "link": 4
+        },
+        {
+          "name": "Have a drink with a fellow corno friend!",
+          "link": 3
+        }
+      ]
+    },
+    {
+      "type": "CameraScene",
+      "title": "My fellow corno!",
+      "text" : "Take a picture with a dear corno!",
+      "label": "corno",
+      "okLink": 4,
+      "errorLink": 5,
+      "notFoundLink": 2
+    },
+    {
+      "type": "GameOverScene",
+      "title": "True Happiness!",
+      "text" : "André was a happy man for the rest of his life! Yey!"
+    },
+    {
+      "type": "GameOverScene",
+      "title": "True Drunkness!",
+      "text" : "André was so wasted he couldn't recognize a fellow corno. Shame on you, André."
+    }
+  ]
+}
