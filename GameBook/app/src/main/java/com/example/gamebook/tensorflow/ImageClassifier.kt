@@ -81,7 +81,7 @@ class ImageClassifier constructor(private val assetManager: AssetManager) {
         return Single.just(bitmap).flatMap {
             convertBitmapToByteBuffer(it)
             interpreter!!.run(imgData, labelProb)
-            val pq = PriorityQueue<Result>(3,
+            val pq = PriorityQueue<Result>(5,
                 Comparator<Result> { lhs, rhs ->
                     // Intentionally reversed to put high confidence at the head of the queue.
                     Float.compare(rhs.confidence!!, lhs.confidence!!)

@@ -6,8 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebook.data.PasswordScene
+import com.example.gamebook.data.database.ApplicationDatabase
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.activity_password.*
 import org.jetbrains.anko.doAsync
 import java.time.ZonedDateTime
@@ -15,19 +15,21 @@ import java.time.format.DateTimeFormatter
 
 class PasswordActivity : AppCompatActivity() {
 
+    private var gameId : Long = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_password)
 
-        val id = intent.getLongExtra("game_id", -1)
+        gameId = intent.getLongExtra("game_id", -1)
 
-        if (id == -1L)
+        if (gameId == -1L)
             finish()
 
-        val db = SerializedGameDatabase.getInstance(this)
+        val db = ApplicationDatabase.getInstance(this)
         doAsync {
             val dao = db.serializedGameDao()
-            val serializedGame = dao.get(id)!!
+            val serializedGame = dao.get(gameId)!!
             val game = Parser.fromJson(serializedGame.json)!!
 
             runOnUiThread {
@@ -51,7 +53,7 @@ class PasswordActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         val intent = Intent(this@PasswordActivity, game.getCurrentActivity())
-                        intent.putExtra("game_id", id)
+                        intent.putExtra("game_id", gameId)
                         startActivity(intent)
                         finish()
                     }
@@ -68,6 +70,7 @@ class PasswordActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_open_notebook -> {
             val intent = Intent(this, NotebookActivity::class.java)
+            intent.putExtra("game_id", gameId)
             startActivity(intent)
             true
         }

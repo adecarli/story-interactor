@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.example.gamebook.data.database.SerializedGameDatabase
+import com.example.gamebook.data.database.ApplicationDatabase
 import kotlinx.android.synthetic.main.activity_game_over.*
 import org.jetbrains.anko.doAsync
 
@@ -20,7 +20,7 @@ class GameOverActivity : AppCompatActivity() {
         if (id == -1L)
             finish()
 
-        val db = SerializedGameDatabase.getInstance(this)
+        val db = ApplicationDatabase.getInstance(this)
         doAsync {
             val dao = db.serializedGameDao()
             val serializedGame = dao.get(id)!!

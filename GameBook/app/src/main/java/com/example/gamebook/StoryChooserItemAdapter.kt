@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamebook.data.database.ApplicationDatabase
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.story_chooser_item.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.runOnUiThread
@@ -30,7 +30,7 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
         val serializedGame = serializedGames[position]
         val game = Parser.fromJson(serializedGame.json)!!
 
-        val db = SerializedGameDatabase.getInstance(context)
+        val db = ApplicationDatabase.getInstance(context)
 
         holder.serializedGame = serializedGame
         holder.view.title.text = game.title
@@ -47,6 +47,7 @@ class StoryChooserItemAdapter(private val serializedGames: List<SerializedGame>,
                     val intent = Intent(this, game.getCurrentActivity())
                     intent.putExtra("game_id", serializedGame.uid)
                     startActivity(intent)
+                    (context as Activity).finish()
                 }
             }
         }

@@ -11,8 +11,8 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gamebook.tensorflow.Keys.INPUT_SIZE
 import com.example.gamebook.data.CameraScene
+import com.example.gamebook.data.database.ApplicationDatabase
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDatabase
 import com.example.gamebook.tensorflow.ImageClassifier
 import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -27,22 +27,23 @@ class CameraActivity : AppCompatActivity() {
         private const val IMAGE_REQUEST_CODE : Int = 502
     }
 
+    private var gameId : Long = -1
     private lateinit var serializedGame : SerializedGame
-    private lateinit var db : SerializedGameDatabase
+    private lateinit var db : ApplicationDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        val id = intent.getLongExtra("game_id", -1)
+        gameId = intent.getLongExtra("game_id", -1)
 
-        if (id == -1L)
+        if (gameId == -1L)
             finish()
 
-        db = SerializedGameDatabase.getInstance(this)
+        db = ApplicationDatabase.getInstance(this)
         doAsync {
             val dao = db.serializedGameDao()
-            serializedGame = dao.get(id)!!
+            serializedGame = dao.get(gameId)!!
             val game = Parser.fromJson(serializedGame.json)!!
 
             val currentScene = game.getCurrentScene() as CameraScene
@@ -70,7 +71,7 @@ class CameraActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         val intent = Intent(this@CameraActivity, game.getCurrentActivity())
-                        intent.putExtra("game_id", id)
+                        intent.putExtra("game_id", gameId)
                         startActivity(intent)
                         finish()
                     }
@@ -83,6 +84,7 @@ class CameraActivity : AppCompatActivity() {
         if (requestCode == IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK)
             try {
                 var bitmap = data?.extras?.get("data") as Bitmap
+                Log.d("DEBUG", bitmap.width.toString())
                 bitmap = Bitmap.createScaledBitmap(bitmap, INPUT_SIZE, INPUT_SIZE, false)
                 ImageClassifier(assets).recognizeImage(bitmap).subscribeBy(
                     onSuccess = {
@@ -92,7 +94,7 @@ class CameraActivity : AppCompatActivity() {
                         val game = Parser.fromJson(serializedGame.json)!!
                         val currentScene = game.getCurrentScene() as CameraScene
 
-                        if (it.filter{el -> el.confidence!! > 70.0f}.map{ el -> el.title }.contains(currentScene.label))
+                        if (it.map{ el -> el.title }.contains(currentScene.label))
                             game.currentSceneIndex = currentScene.okLink
                         else
                             game.currentSceneIndex = currentScene.errorLink
@@ -124,6 +126,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_open_notebook -> {
             val intent = Intent(this, NotebookActivity::class.java)
+            intent.putExtra("game_id", gameId)
             startActivity(intent)
             true
         }

@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class SerializedGame (
     @PrimaryKey(autoGenerate = true) val uid : Long,
     @ColumnInfo(name = "json") var json : String,
-    @ColumnInfo(name = "last_played") var lastPlayed : String
+    @ColumnInfo(name = "last_played") var lastPlayed : String,
+    @ColumnInfo(name = "notes") var notes : String = ""
 )

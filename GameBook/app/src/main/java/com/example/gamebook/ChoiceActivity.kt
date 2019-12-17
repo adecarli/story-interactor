@@ -10,8 +10,8 @@ import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import com.example.gamebook.data.ChoiceScene
+import com.example.gamebook.data.database.ApplicationDatabase
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDatabase
 import kotlinx.android.synthetic.main.activity_choice.*
 import kotlinx.android.synthetic.main.activity_choice.button_next
 import org.jetbrains.anko.doAsync
@@ -20,19 +20,21 @@ import java.time.format.DateTimeFormatter
 
 class ChoiceActivity : AppCompatActivity() {
 
+    private var gameId : Long = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choice)
 
-        val id = intent.getLongExtra("game_id", -1)
+        gameId = intent.getLongExtra("game_id", -1)
 
-        if (id == -1L)
+        if (gameId == -1L)
             finish()
 
-        val db = SerializedGameDatabase.getInstance(this)
+        val db = ApplicationDatabase.getInstance(this)
         doAsync {
             val dao = db.serializedGameDao()
-            val serializedGame = dao.get(id)!!
+            val serializedGame = dao.get(gameId)!!
             val game = Parser.fromJson(serializedGame.json)!!
 
             val currentScene = game.getCurrentScene() as ChoiceScene
@@ -74,7 +76,7 @@ class ChoiceActivity : AppCompatActivity() {
 
                     runOnUiThread {
                         val intent = Intent(this@ChoiceActivity, game.getCurrentActivity())
-                        intent.putExtra("game_id", id)
+                        intent.putExtra("game_id", gameId)
                         startActivity(intent)
                         finish()
                     }
@@ -91,6 +93,7 @@ class ChoiceActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_open_notebook -> {
             val intent = Intent(this, NotebookActivity::class.java)
+            intent.putExtra("game_id", gameId)
             startActivity(intent)
             true
         }

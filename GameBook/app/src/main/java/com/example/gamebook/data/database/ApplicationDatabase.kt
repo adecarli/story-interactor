@@ -5,20 +5,22 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+
+
 @Database(entities = [SerializedGame::class], version = 1)
-abstract class SerializedGameDatabase : RoomDatabase() {
-    abstract fun serializedGameDao(): SerializedGameDao
+abstract class ApplicationDatabase : RoomDatabase() {
+    abstract fun serializedGameDao() : SerializedGameDao
 
     companion object {
-        private var instance: SerializedGameDatabase? = null
+        private var instance: ApplicationDatabase? = null
         private val sLock = Any()
 
-        fun getInstance(context: Context): SerializedGameDatabase {
+        fun getInstance(context: Context): ApplicationDatabase {
             synchronized (sLock) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        SerializedGameDatabase::class.java, "SerializedGameDatabase.db"
+                        ApplicationDatabase::class.java, "ApplicationDatabase.db"
                     ).build()
                 }
                 return instance!!

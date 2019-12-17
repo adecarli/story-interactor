@@ -2,43 +2,42 @@ package com.example.gamebook
 
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamebook.data.database.ApplicationDatabase
+import kotlinx.android.synthetic.main.activity_notebook.*
+import org.jetbrains.anko.doAsync
 
 class NotebookActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-    private var notes : MutableList<String> = mutableListOf()
+    private var gameId : Long = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notebook)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = NotebookItemAdapter(this.notes)
+        gameId = intent.getLongExtra("game_id", -1)
 
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
-            layoutManager = viewManager
-            adapter = viewAdapter
+        if (gameId == -1L)
+            finish()
+
+        val db = ApplicationDatabase.getInstance(this)
+        doAsync {
+            val game = db.serializedGameDao().get(gameId)!!
+            runOnUiThread {
+                text_view.setText(game.notes)
+            }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.notebook_app_bar_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_new_note -> {
-            this.notes.add("")
-            this.recyclerView.adapter?.notifyDataSetChanged()
-            true
+    override fun onDestroy() {
+        val db = ApplicationDatabase.getInstance(this)
+        doAsync {
+            val game = db.serializedGameDao().get(gameId)!!
+            game.notes = text_view.text.toString()
+            db.serializedGameDao().update(game)
         }
-
-        else -> super.onOptionsItemSelected(item)
+        super.onDestroy()
     }
 }

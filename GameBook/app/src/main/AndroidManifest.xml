@@ -16,12 +16,10 @@
         <activity
             android:name=".GameOverActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".StoryChooserActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NotebookActivity"
@@ -34,17 +32,14 @@
         <activity
             android:name=".PasswordActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChoiceActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TextActivity"
             android:configChanges="orientation"
-            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
