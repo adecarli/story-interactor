@@ -4,5 +4,13 @@ class Game (
     val title : String,
     val description : String,
     val scenes : Array<Scene>,
-    val currentScene: Int = 0
-)
+    var currentSceneIndex: Int = 0
+) {
+    fun getCurrentActivity() : Class<*> {
+        return getCurrentScene().getActivityType()
+    }
+
+    fun getCurrentScene() : Scene {
+        return scenes[currentSceneIndex]
+    }
+}

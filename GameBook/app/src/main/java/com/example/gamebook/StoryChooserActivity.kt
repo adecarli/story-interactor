@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gamebook.data.database.ApplicationDatabase
 import com.example.gamebook.data.database.SerializedGame
-import com.example.gamebook.data.database.SerializedGameDatabase
 import org.jetbrains.anko.doAsync
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -29,7 +29,7 @@ class StoryChooserActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        val db = SerializedGameDatabase.getInstance(this)
+        val db = ApplicationDatabase.getInstance(this)
 
         doAsync {
             val dao = db.serializedGameDao()

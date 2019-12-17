@@ -12,7 +12,8 @@ O público-alvo do projeto são pessoas que tem interesse em aventuras a base de
 Atualmente, existem algumas alternativas de aventuras a base de texto em dispositivos móveis, como [Magium](https://play.google.com/store/apps/details?id=com.magiumgames.magium&hl=en) e [Fighting Fantasy Classics](https://play.google.com/store/apps/details?id=com.tinmangames.ffhub&hl=en). No entanto, não encontramos um aplicativo que explorasse o potencial dos celulares atuais, com diversos sensores disponíveis.
 
 ## Como usar?
-Principalmente, o usuário irá interagir com a aplicação fazendo escolhas que ditarão o rumo da história. Em algumas situações específicas, será requisitado que ele use recursos disponíveis no dispositivo (como câmera, microfone ou GPS) para revelar novas escolhas e/ou informações ou superar desafios propostos.
+O usuário irá interagir com a aplicação fazendo escolhas que ditarão o rumo da história. Em algumas situações específicas, será requisitado que ele use recursos disponíveis no dispositivo (como câmera, microfone ou GPS) para revelar novas escolhas e/ou informações ou superar desafios propostos.  
+A história pode ser customizada pelo usuário, que irá carregá-la a partir de um arquivo JSON ([exemplo](story.json)).
 
 [Mockup](https://pr.to/UUIWAI/)
 
@@ -33,4 +34,6 @@ Principalmente, o usuário irá interagir com a aplicação fazendo escolhas que
     * https://github.com/natanielruiz/android-yolo
     * https://firebase.google.com/docs/ml-kit/android/label-images
 
-
+## Dificuldades encontradas
+* O TensorFlow apresentou um baixo nível de confiança nas imagens analisadas, provavelmente devido ao arquivo treinado da rede que escolhemos.
+* O uso de GPS e microfone não funcionou como esperado, e optamos por removê-los do atual estado do projeto
